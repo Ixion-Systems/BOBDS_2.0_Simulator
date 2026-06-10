@@ -3,7 +3,9 @@ package com.bobds.simulador;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
+/* clase principal del simulador */
 public class Main {
+    /* inicializacion del servidor http */
     public static void main(String[] args) throws Exception {
         RobotService robotService = new RobotService();
 
@@ -11,7 +13,7 @@ public class Main {
 
         server.createContext("/robot/ejecutar", exchange -> {
             if ("POST".equals(exchange.getRequestMethod())) {
-                // Leer el body del request
+
                 String body = new String(exchange.getRequestBody().readAllBytes());
                 String idUnidad = extraerParam(body, "idUnidad");
                 String idOrdenStr = extraerParam(body, "idOrden");
@@ -26,17 +28,15 @@ public class Main {
 
                 System.out.println("Orden recibida → Unidad: " + idUnidad + " | Orden ID: " + idOrden + " | Cmd: " + orden);
 
-                // Procesar en hilo separado para no bloquear el servidor
                 final int finalIdOrden = idOrden;
                 new Thread(() -> robotService.procesarOrden(idUnidad, finalIdOrden, orden)).start();
 
-                // Responder inmediatamente al backend
                 String respuesta = "Orden recibida";
                 exchange.sendResponseHeaders(200, respuesta.length());
                 exchange.getResponseBody().write(respuesta.getBytes());
                 exchange.getResponseBody().close();
             } else {
-                exchange.sendResponseHeaders(405, -1); // Method Not Allowed
+                exchange.sendResponseHeaders(405, -1); 
                 exchange.close();
             }
         });
@@ -45,6 +45,7 @@ public class Main {
         System.out.println("Simulador corriendo en puerto 7777...");
     }
 
+    /* metodos auxiliares */
     private static String extraerParam(String body, String param) {
         for (String par : body.split("&")) {
             String[] kv = par.split("=");
