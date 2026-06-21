@@ -17,7 +17,8 @@ B.O.B.D.S. Hardware Simulator is a standalone Java application designed to mock 
 * **HTTP Server:** Implements a lightweight `com.sun.net.httpserver.HttpServer` listening on port `7777` to receive external payloads.
 * **Asynchronous Queueing:** Uses concurrent threads to simulate execution times for received orders.
 * **State Syncing:** Automatically updates the backend REST API whenever a unit wakes up, finishes an order, or goes idle.
-* **Logging & Tracking:** Verbose console output tracking order lifecycle (Received > Queued > In Progress > Finished).
+* **Logging & Tracking:** Verbose console output tracking order lifecycle (Received > Queued > In Progress > Finished), fully synced with the backend's new Audit Logging system.
+* **Multi-user Order Execution:** Seamlessly processes orders regardless of the hierarchical role (Propietario, Operador, etc.) of the operator who dispatched it.
 
 ## Prerequisites
 
