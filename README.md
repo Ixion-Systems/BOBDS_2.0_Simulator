@@ -57,3 +57,5 @@ To run the simulator and connect it to the server:
 
 * `Main.java`: Starts the HTTP server on port 7777 and exposes the `/orden` context to receive JSON payloads containing `idUnidad`, `idOrden`, and `orden`.
 * `RobotService.java`: Manages the threading logic to delay execution randomly (simulating physical tasks) and sends state updates (`ACTIVA`/`INACTIVA`, `EN CURSO`/`FINALIZADA`) back to the B.O.B.D.S. Server.
+## Deployment (Docker & .env)
+This simulator is fully containerized. Configuration (such as the backend URL) is managed via a .env file located in the root directory (excluded via .gitignore to prevent leaks).
